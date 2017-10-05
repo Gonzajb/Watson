@@ -216,6 +216,16 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WatsonORT.Datos\WatsonORT.Datos.csproj">
+      <Project>{afdc295a-e14c-450f-aaaa-75e68e57701c}</Project>
+      <Name>WatsonORT.Datos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WatsonORT.Dominio\WatsonORT.Dominio.csproj">
+      <Project>{ef4407bf-9a6d-4287-8178-2aa2ce36f40e}</Project>
+      <Name>WatsonORT.Dominio</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
