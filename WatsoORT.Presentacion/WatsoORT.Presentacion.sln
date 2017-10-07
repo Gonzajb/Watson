@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatsonORT.Dominio", "Watson
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatsonORT.Datos", "WatsonORT.Datos\WatsonORT.Datos.csproj", "{AFDC295A-E14C-450F-AAAA-75E68E57701C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatsonORT.Test", "WatsonORT.Test\WatsonORT.Test.csproj", "{683C2EC7-F7D7-4D8B-863C-5898463A4646}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AFDC295A-E14C-450F-AAAA-75E68E57701C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFDC295A-E14C-450F-AAAA-75E68E57701C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFDC295A-E14C-450F-AAAA-75E68E57701C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683C2EC7-F7D7-4D8B-863C-5898463A4646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683C2EC7-F7D7-4D8B-863C-5898463A4646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683C2EC7-F7D7-4D8B-863C-5898463A4646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683C2EC7-F7D7-4D8B-863C-5898463A4646}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
