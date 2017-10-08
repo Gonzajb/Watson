@@ -7,34 +7,15 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WatsonORT.Datos;
+using WatsonORT.Datos.Repositorios;
 using WatsonORT.Dominio.Clases;
+using WatsonORT.Presentacion.Servicios;
 
 namespace WatsonORT.Presentacion.Controllers
 {
     public class ConsultaAnalisisController : Controller
     {
-        private WatsonORTDbContext db = new WatsonORTDbContext();
-
-        // GET: ConsultaAnalisis
-        public ActionResult Index()
-        {
-            return View(db.ConsultasAnalisis.ToList());
-        }
-
-        // GET: ConsultaAnalisis/Details/5
-        public ActionResult Details(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ConsultaAnalisis consultaAnalisis = db.ConsultasAnalisis.Find(id);
-            if (consultaAnalisis == null)
-            {
-                return HttpNotFound();
-            }
-            return View(consultaAnalisis);
-        }
+        private ConsultaAnalisisRepository db = new ConsultaAnalisisRepository();
 
         // GET: ConsultaAnalisis/Create
         public ActionResult Create()
@@ -47,82 +28,31 @@ namespace WatsonORT.Presentacion.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,Nombre,Texto,CodigoConsulta")] ConsultaAnalisis consultaAnalisis)
+        public ActionResult Create([Bind(Include = "Id,Email,Nombre,Texto,CodigoConsulta")] ConsultaAnalisis consultaAnalisis, bool aceptoTerminosYCondiciones)
         {
+            if (!aceptoTerminosYCondiciones) {
+                ModelState.AddModelError("", "Debe aceptar los términos y condiciones para poder seguir adelante.");
+            }
             if (ModelState.IsValid)
             {
-                db.ConsultasAnalisis.Add(consultaAnalisis);
-                db.SaveChanges();
+                
+                db.AddEntity(consultaAnalisis);
+                consultaAnalisis.CodigoConsulta = consultaAnalisis.Id.ToString("000000");
+                db.UpdateEntity(consultaAnalisis);
+                EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
+                List<string> emailList = new List<string>();
+                emailList.Add(consultaAnalisis.Email);
+                emailService.SendEmail("Envío de código de consulta",
+                    @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
+                    emailList);
                 return RedirectToAction("Index");
             }
 
             return View(consultaAnalisis);
         }
+    }
 
-        // GET: ConsultaAnalisis/Edit/5
-        public ActionResult Edit(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ConsultaAnalisis consultaAnalisis = db.ConsultasAnalisis.Find(id);
-            if (consultaAnalisis == null)
-            {
-                return HttpNotFound();
-            }
-            return View(consultaAnalisis);
-        }
-
-        // POST: ConsultaAnalisis/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,Nombre,Texto,CodigoConsulta")] ConsultaAnalisis consultaAnalisis)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(consultaAnalisis).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(consultaAnalisis);
-        }
-
-        // GET: ConsultaAnalisis/Delete/5
-        public ActionResult Delete(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ConsultaAnalisis consultaAnalisis = db.ConsultasAnalisis.Find(id);
-            if (consultaAnalisis == null)
-            {
-                return HttpNotFound();
-            }
-            return View(consultaAnalisis);
-        }
-
-        // POST: ConsultaAnalisis/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
-        {
-            ConsultaAnalisis consultaAnalisis = db.ConsultasAnalisis.Find(id);
-            db.ConsultasAnalisis.Remove(consultaAnalisis);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    internal class BaseRepository
+    {
     }
 }
