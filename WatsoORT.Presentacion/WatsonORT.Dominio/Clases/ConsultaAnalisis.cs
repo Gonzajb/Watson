@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,5 +19,7 @@ namespace WatsonORT.Dominio.Clases
         [Required(ErrorMessage ="El campo Texto es obligatorio.")]
         public string Texto { get; set; }
         public string CodigoConsulta { get; set; }
+        [NotMapped]
+        public bool AceptoTerminosYCondiciones { get; set; }
     }
 }

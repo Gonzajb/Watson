@@ -28,14 +28,13 @@ namespace WatsonORT.Presentacion.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,Nombre,Texto,CodigoConsulta")] ConsultaAnalisis consultaAnalisis, bool aceptoTerminosYCondiciones)
+        public ActionResult Create([Bind(Include = "Id,Email,Nombre,Texto,CodigoConsulta,AceptoTerminosYCondiciones")] ConsultaAnalisis consultaAnalisis)
         {
-            if (!aceptoTerminosYCondiciones) {
+            if (!consultaAnalisis.AceptoTerminosYCondiciones) {
                 ModelState.AddModelError("", "Debe aceptar los términos y condiciones para poder seguir adelante.");
             }
             if (ModelState.IsValid)
             {
-                
                 db.AddEntity(consultaAnalisis);
                 consultaAnalisis.CodigoConsulta = consultaAnalisis.Id.ToString("000000");
                 db.UpdateEntity(consultaAnalisis);
