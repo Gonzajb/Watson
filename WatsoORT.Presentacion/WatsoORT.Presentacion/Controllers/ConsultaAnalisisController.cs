@@ -44,7 +44,7 @@ namespace WatsonORT.Presentacion.Controllers
                 emailService.SendEmail("Envío de código de consulta",
                     @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
                     emailList);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("RegistroExitoso", "Home");
             }
 
             return View(consultaAnalisis);
