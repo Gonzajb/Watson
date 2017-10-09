@@ -13,7 +13,7 @@ namespace WatsonORT.Test
         {
             EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
             List<string> emailList = new List<string>();
-            emailList.Add("nicolasasabaj@gmail.com");
+            emailList.Add("ngoyano@gmail.com");
             emailService.SendEmail("Envío de código de consulta",
                 @"<h4>Envío de código de consulta:</h4> COD00001",
                 emailList);
