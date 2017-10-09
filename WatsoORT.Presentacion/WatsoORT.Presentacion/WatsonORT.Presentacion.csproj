@@ -159,9 +159,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ConsultaAnalisisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ResultadoWatsonController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IngresoCodigoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\EmailService.cs" />
   </ItemGroup>
@@ -207,10 +209,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ConsultaAnalisis\Create.cshtml" />
     <Content Include="Views\ConsultaAnalisis\Index.cshtml" />
+    <Content Include="Views\ResultadoWatson\IngresoCodigo.cshtml" />
+    <Content Include="Views\ResultadoWatson\Resultado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
