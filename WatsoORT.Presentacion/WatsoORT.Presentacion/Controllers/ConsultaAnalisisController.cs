@@ -61,12 +61,19 @@ namespace WatsonORT.Presentacion.Controllers
 
         private static void EnviarEmailCodigo(ConsultaAnalisis consultaAnalisis)
         {
-            EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
-            List<string> emailList = new List<string>();
-            emailList.Add(consultaAnalisis.Email);
-            emailService.SendEmail("Envío de código de consulta",
-                @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
-                emailList);
+            try
+            {
+                EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
+                List<string> emailList = new List<string>();
+                emailList.Add(consultaAnalisis.Email);
+                emailService.SendEmail("Envío de código de consulta",
+                    @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
+                    emailList);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("","<script>window.alert('No se pudo enviar mail, vuelva a intentarlo mas tarde.');</script>");
+            }
         }
     }
 
