@@ -15,7 +15,7 @@ namespace WatsonORT.Presentacion.Controllers
 {
     public class ConsultaAnalisisController : Controller
     {
-        private ConsultaAnalisisRepository db = new ConsultaAnalisisRepository();
+        private ConsultaAnalisisRepository consultaRepository = new ConsultaAnalisisRepository();
 
         // GET: ConsultaAnalisis/Create
         public ActionResult Create()
@@ -30,24 +30,43 @@ namespace WatsonORT.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Email,Nombre,Texto,CodigoConsulta,AceptoTerminosYCondiciones")] ConsultaAnalisis consultaAnalisis)
         {
-            if (!consultaAnalisis.AceptoTerminosYCondiciones) {
+            if (!consultaAnalisis.AceptoTerminosYCondiciones)
+            {
                 ModelState.AddModelError("", "Debe aceptar los términos y condiciones para poder seguir adelante.");
             }
+            ValidarTexto(consultaAnalisis);
             if (ModelState.IsValid)
             {
-                db.AddEntity(consultaAnalisis);
+                consultaRepository.AddEntity(consultaAnalisis);
                 consultaAnalisis.CodigoConsulta = consultaAnalisis.Id.ToString("000000");
-                db.UpdateEntity(consultaAnalisis);
-                EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
-                List<string> emailList = new List<string>();
-                emailList.Add(consultaAnalisis.Email);
-                emailService.SendEmail("Envío de código de consulta",
-                    @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
-                    emailList);
+                consultaRepository.UpdateEntity(consultaAnalisis);
+
+                EnviarEmailCodigo(consultaAnalisis);
                 return RedirectToAction("Index", "Home");
             }
 
             return View(consultaAnalisis);
+        }
+
+        private void ValidarTexto(ConsultaAnalisis consultaAnalisis)
+        {
+            string texto = consultaAnalisis.Texto.Trim();
+            consultaAnalisis.Texto = texto;
+            string[] words = texto.Split(new Char[] { ' ' });
+            if (words.Length < 100)
+            {
+                ModelState.AddModelError("", "El texto debe contener al menos 100 palabras.");
+            }
+        }
+
+        private static void EnviarEmailCodigo(ConsultaAnalisis consultaAnalisis)
+        {
+            EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
+            List<string> emailList = new List<string>();
+            emailList.Add(consultaAnalisis.Email);
+            emailService.SendEmail("Envío de código de consulta",
+                @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
+                emailList);
         }
     }
 
