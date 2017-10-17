@@ -16,25 +16,6 @@ namespace WatsonORT.Presentacion.Servicios
         {  
         }
 
-        //public T Execute<T>(RestRequest request) where T : new()
-        //{
-        //    var client = new RestClient(baseUrl);
-        //    var response = client.Execute<T>(request);
-
-        //    if (response.ErrorException != null)
-        //    {
-        //        throw new HttpException(errorMessage);
-        //    }
-        //    return response.Data;
-        //}
-
-
-        //public Object SendRequest(string consulta)
-        //{
-        //    var request = new RestRequest(Method.POST);
-        //    request.AddParameter("text", consulta);
-        //    return Execute<Object>(request);
-        //}
         public Object SendRequest(string consulta)
         {
             var client = new RestClient(baseUrl);
