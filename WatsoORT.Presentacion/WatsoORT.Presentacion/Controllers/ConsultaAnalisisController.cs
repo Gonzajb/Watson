@@ -59,7 +59,7 @@ namespace WatsonORT.Presentacion.Controllers
             }
         }
 
-        private static void EnviarEmailCodigo(ConsultaAnalisis consultaAnalisis)
+        private void EnviarEmailCodigo(ConsultaAnalisis consultaAnalisis)
         {
             try
             {

@@ -16,18 +16,20 @@ namespace WatsonORT.Presentacion.Servicios
         {  
         }
 
-        public Object SendRequest(string consulta)
+        public ResultadoWatson SendRequest(string consulta)
         {
             var client = new RestClient(baseUrl);
             var request = new RestRequest(Method.POST);
             request.AddParameter("text", consulta);
-            var response = client.Execute<Object>(request);
+            var response = client.Execute<List<ElementoResultado>>(request);
+            ResultadoWatson resultado = new ResultadoWatson();
+            resultado.Elementos = response.Data;
 
             if (response.ErrorException != null)
             {
-                throw new HttpException(errorMessage);
+                throw new Exception(errorMessage);
             }
-            return response.Data;
+            return resultado;
         }
     }
 }

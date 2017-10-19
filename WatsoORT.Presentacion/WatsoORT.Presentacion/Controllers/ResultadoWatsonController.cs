@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WatsonORT.Presentacion.Models;
 using WatsonORT.Datos.Repositorios;
 using WatsonORT.Dominio.Clases;
+using WatsonORT.Presentacion.Servicios;
 
 namespace WatsonORT.Presentacion.Controllers
 {
@@ -22,6 +23,8 @@ namespace WatsonORT.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult IngresoCodigo(IngresoCodigoViewModel model)
         {
+            ApiRequestService api = new ApiRequestService();
+            ResultadoWatson resultado = new ResultadoWatson();
             if (ModelState.IsValid)
             {
                 var consulta = new ConsultaAnalisis();
@@ -30,10 +33,16 @@ namespace WatsonORT.Presentacion.Controllers
                 {
                     ModelState.AddModelError("Codigo de consulta incorrecto", "Codigo de consulta incorrecto");
                     return View(model);
-                }               
-;                
-                return RedirectToAction("Resultado", "ResultadoWatson");
-
+                }
+                try
+                {
+                    resultado = api.SendRequest(consulta.Texto);
+                    return View("Resultado", resultado);
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("",e.Message);
+                }
             }
             return View(model);
         }

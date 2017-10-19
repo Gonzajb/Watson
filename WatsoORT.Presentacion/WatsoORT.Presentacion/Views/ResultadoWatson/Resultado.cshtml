@@ -1,4 +1,4 @@
-﻿@model WatsonORT.Presentacion.Models.IngresoCodigoViewModel
+﻿@model WatsonORT.Dominio.Clases.ResultadoWatson
 @{
     ViewBag.Title = "Resultado";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,6 +7,27 @@
 <div class="vacio">
     <h1>Watson ORT</h1>
     <p class="lead">Vacio</p>
- 
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>title</th>
+                <th>value</th>
+                <th>sampling_error</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Elementos)
+            {
+                <tr>
+                    <td>@item.id[0]</td>
+                    <td>@item.title[0]</td>
+                    <td>@item.value[0]</td>
+                    <td>@item.sampling_error[0]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
     @*<p><a href="#" class="btn btn-primary btn-lg"></a></p>*@
 </div>

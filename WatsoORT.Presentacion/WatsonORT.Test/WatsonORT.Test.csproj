@@ -50,10 +50,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="WatsonTest.cs" />
     <Compile Include="EmailTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WatsonORT.Dominio\WatsonORT.Dominio.csproj">
+      <Project>{ef4407bf-9a6d-4287-8178-2aa2ce36f40e}</Project>
+      <Name>WatsonORT.Dominio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WatsoORT.Presentacion\WatsonORT.Presentacion.csproj">
       <Project>{14043364-D0A6-4C93-80A5-D8658CAE2BF1}</Project>
       <Name>WatsonORT.Presentacion</Name>
