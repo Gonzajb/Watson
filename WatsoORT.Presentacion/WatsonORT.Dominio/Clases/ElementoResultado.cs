@@ -8,10 +8,10 @@ namespace WatsonORT.Dominio.Clases
 {
     public class ElementoResultado
     {
-        public List<string> id { get; set; }
-        public List<bool> title { get; set; }
-        public List<string> value { get; set; }
-        public List<string> sampling_error { get; set; }
+        public List<string> Id { get; set; }
+        public List<bool> Title { get; set; }
+        public List<string> Value { get; set; }
+        public List<string> Sampling_error { get; set; }
 
     }
 }
