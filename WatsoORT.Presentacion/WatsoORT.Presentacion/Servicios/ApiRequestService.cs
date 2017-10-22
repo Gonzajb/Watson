@@ -11,7 +11,8 @@ namespace WatsonORT.Presentacion.Servicios
     public class ApiRequestService
     {
         string baseUrl = "http://jony-personality.mybluemix.net/api/personality";
-        string errorMessage = "Error en la conexion con el servicio";
+        string errorMessage = "Error en la conexión con el servicio.";
+
         public ApiRequestService()
         {  
         }

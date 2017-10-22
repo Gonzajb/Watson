@@ -8,8 +8,8 @@ namespace WatsonORT.Presentacion.Models
 {
     public class IngresoCodigoViewModel
     {
-        [Required]
-        [Display(Name = "Codigo")]
+        [Required(ErrorMessage = "Este campo es obligatorio.")]
+        [Display(Name = "Código")]
         public string CodigoConsulta { get; set; }
     }
 }

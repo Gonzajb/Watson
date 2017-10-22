@@ -42,7 +42,7 @@ namespace WatsonORT.Presentacion.Controllers
                 consultaRepository.UpdateEntity(consultaAnalisis);
 
                 EnviarEmailCodigo(consultaAnalisis);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("CodigoEnviado", "ConsultaAnalisis");
             }
 
             return View(consultaAnalisis);
@@ -63,17 +63,23 @@ namespace WatsonORT.Presentacion.Controllers
         {
             try
             {
-                EmailService emailService = new EmailService("nicolasasabaj@gmail.com", "GGc9opv7", "Nicolas");
+                EmailService emailService = new EmailService("instituto.ort.watson@gmail.com", "Watson!2017", "instituto.ort.watson");
                 List<string> emailList = new List<string>();
                 emailList.Add(consultaAnalisis.Email);
-                emailService.SendEmail("Envío de código de consulta",
-                    @"<h4>Envío de código de consulta:</h4> " + consultaAnalisis.CodigoConsulta,
+                emailService.SendEmail(
+                    "Instituto de Tecnología ORT - Carrera Analista de Sistemas - Análisis de Personalidad",
+                    @"<h4>Tu código de consulta es:</h4> " + consultaAnalisis.CodigoConsulta,
                     emailList);
             }
             catch (Exception e)
             {
                 ModelState.AddModelError("","<script>window.alert('No se pudo enviar mail, vuelva a intentarlo mas tarde.');</script>");
             }
+        }
+
+        public ActionResult CodigoEnviado()
+        {
+            return View();
         }
     }
 

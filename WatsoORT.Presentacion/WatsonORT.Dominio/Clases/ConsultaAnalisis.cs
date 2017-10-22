@@ -11,12 +11,13 @@ namespace WatsonORT.Dominio.Clases
     public class ConsultaAnalisis
     {
         public long Id { get; set; }
-        [Required(ErrorMessage ="El campo Email es obligatorio.")]
-        [EmailAddress(ErrorMessage = "El campo Email no tiene un formato correcto.")]
+        [Required(ErrorMessage ="Este campo es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El Email no tiene un formato correcto.")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "El campo Nombre es obligatorio.")]
+        [Required(ErrorMessage = "Este campo es obligatorio.")]
         public string Nombre { get; set; }
-        [Required(ErrorMessage ="El campo Texto es obligatorio.")]
+        [Required(ErrorMessage ="Este campo es obligatorio.")]
+        [Display(Name = "Tu carta de presentación o un texto de tu autoría")]
         public string Texto { get; set; }
         public string CodigoConsulta { get; set; }
         [NotMapped]

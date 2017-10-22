@@ -1,18 +1,18 @@
 ﻿@model WatsonORT.Dominio.Clases.ResultadoWatson
 @{
-    ViewBag.Title = "Resultado";
+    ViewBag.Title = "Resultado del análisis";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="vacio">
-    <h1>Watson ORT</h1>
-    <p class="lead">Vacio</p>
-    <table>
+    <h1>Watson Personality Insights</h1>
+    <p class="lead">Resultado del análisis</p>
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>value</th>
+                <th>Id</th>
+                <th>Título</th>
+                <th>Valor</th>
                 <th>sampling_error</th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@
             @foreach (var item in Model.Elementos)
             {
                 <tr>
-                    <td>@item.Id[0]</td>
+                    <th scope="row">@item.Id[0]</th>
                     <td>@item.Title[0]</td>
                     <td>@item.Value[0]</td>
                     <td>@item.Sampling_error[0]</td>
@@ -28,6 +28,4 @@
             }
         </tbody>
     </table>
-    
-    @*<p><a href="#" class="btn btn-primary btn-lg"></a></p>*@
 </div>
