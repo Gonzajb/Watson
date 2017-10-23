@@ -1,31 +1,173 @@
-﻿@model WatsonORT.Dominio.Clases.ResultadoWatson
+﻿@model Watson.PersonalityInsights.Models.Profile
 @{
     ViewBag.Title = "Resultado del análisis";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ResultadosLayout.cshtml";
 }
 
 <div class="vacio">
     <h1>Watson Personality Insights</h1>
     <p class="lead">Resultado del análisis</p>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Título</th>
-                <th>Valor</th>
-                <th>sampling_error</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Elementos)
-            {
-                <tr>
-                    <th scope="row">@item.Id[0]</th>
-                    <td>@item.Title[0]</td>
-                    <td>@item.Value[0]</td>
-                    <td>@item.Sampling_error[0]</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+
+    @{
+        var array = Model.Tree.Children.ToArray();
+
+        if (array.Length > 0)
+        {
+            var item1 = array[0];
+
+            <div class="output-big-5 output-stats-column">
+                <h4 class="base--h4">@item1.Name</h4>
+                <div class="output-stats-column--percentile-label">
+                    *% =
+                    percentil
+                </div>
+                <div class="output-big-5--traits output-stats-column--traits">
+                    @{
+                        if (item1.Children.FirstOrDefault() != null && item1.Children.FirstOrDefault().Children != null)
+                        {
+                            foreach (Watson.PersonalityInsights.Models.ITrait subitem in item1.Children.First().Children)
+                            {
+                                <div class="percent-bar-and-score toggled">
+                                    <div class="percent-bar-and-score--label output-big-5--trait-label output-big-5--trait-label_POSITIVE">
+                                        @subitem.Name
+                                        <!--<div class="tooltip">
+                                            <p>Necesidad de cuidar y ser cuidado; sentido de pertenencia.</p>
+                                        </div>-->
+                                    </div>
+                                    <div class="percent-bar percent-bar-and-score--percent-bar">
+                                        @{
+                                            var porcentaje = Math.Round(subitem.Percentage * 100, 0);
+                                        }
+                                        <div class="percent-bar--meter" style="-webkit-transform: translate(@porcentaje%); transform: translate(@porcentaje%)">
+                                            <div class="percent-bar--ball percent-bar--ball_POSITIVE-FILL"></div>
+                                            <div class="percent-bar-and-score--number">
+                                                @porcentaje
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    if (subitem.Children != null)
+                                    {
+                                        <div class="output-big-5--sub-tree">
+                                            @foreach (Watson.PersonalityInsights.Models.ITrait subitem1 in subitem.Children)
+                                            {
+                                                <div class="percent-bar-and-score">
+                                                    <div class="percent-bar-and-score--label output-big-5--sub-trait-label output-big-5--sub-trait-label_POSITIVE">
+                                                        @subitem1.Name
+                                                        <!--<div class="tooltip">
+                                                            <p>Necesidad de cuidar y ser cuidado; sentido de pertenencia.</p>
+                                                        </div>-->
+                                                    </div>
+                                                    <div class="percent-bar percent-bar-and-score--percent-bar">
+                                                        @{
+                                                            porcentaje = Math.Round(subitem1.Percentage * 100, 0);
+                                                        }
+                                                        <div class="percent-bar--meter" style="-webkit-transform: translate(@porcentaje%); transform: translate(@porcentaje%)">
+                                                            <div class="percent-bar--ball percent-bar--ball_POSITIVE-FILL"></div>
+                                                            <div class="percent-bar-and-score--number">
+                                                                @porcentaje
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    @{
+        if (array.Length > 1)
+        {
+            var item2 = array[1];
+
+            <div class="output-needs output-stats-column">
+                <h4 class="base--h4">@item2.Name</h4>
+                <div class="output-stats-column--percentile-label">
+                    *% =
+                    percentil
+                </div>
+                <div class="output-needs--traits output-stats-column--traits">
+                    @{
+                        if (item2.Children.FirstOrDefault() != null && item2.Children.FirstOrDefault().Children != null)
+                        {
+                            foreach (Watson.PersonalityInsights.Models.ITrait subitem in item2.Children.First().Children)
+                            {
+                                <div class="percent-bar-and-score">
+                                    <div class="percent-bar-and-score--label percent-bar-and-score--label_POSITIVE">
+                                        @subitem.Name
+                                        <!--<div class="tooltip">
+                                            <p>Necesidad de cuidar y ser cuidado; sentido de pertenencia.</p>
+                                        </div>-->
+                                    </div>
+                                    <div class="percent-bar percent-bar-and-score--percent-bar">
+                                        @{
+                                            var porcentaje = Math.Round(subitem.Percentage * 100, 0);
+                                        }
+                                        <div class="percent-bar--meter" style="-webkit-transform: translate(@porcentaje%); transform: translate(@porcentaje%)">
+                                            <div class="percent-bar--ball percent-bar--ball_POSITIVE-FILL"></div>
+                                            <div class="percent-bar-and-score--number">
+                                                @porcentaje
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+
+
+    @{
+        if (array.Length > 2)
+        {
+            var item3 = array[2];
+
+            <div class="output-needs output-stats-column">
+                <h4 class="base--h4">@item3.Name</h4>
+                <div class="output-stats-column--percentile-label">
+                    *% =
+                    percentil
+                </div>
+                <div class="output-needs--traits output-stats-column--traits">
+                    @{
+                        if (item3.Children.FirstOrDefault() != null && item3.Children.FirstOrDefault().Children != null)
+                        {
+                            foreach (Watson.PersonalityInsights.Models.ITrait subitem in item3.Children.First().Children)
+                            {
+                                <div class="percent-bar-and-score">
+                                    <div class="percent-bar-and-score--label percent-bar-and-score--label_POSITIVE">
+                                        @subitem.Name
+                                        <!--<div class="tooltip">
+                                            <p>Necesidad de cuidar y ser cuidado; sentido de pertenencia.</p>
+                                        </div>-->
+                                    </div>
+                                    <div class="percent-bar percent-bar-and-score--percent-bar">
+                                        @{
+                                            var porcentaje = Math.Round(subitem.Percentage * 100, 0);
+                                        }
+                                        <div class="percent-bar--meter" style="-webkit-transform: translate(@porcentaje%); transform: translate(@porcentaje%)">
+                                            <div class="percent-bar--ball percent-bar--ball_POSITIVE-FILL"></div>
+                                            <div class="percent-bar-and-score--number">
+                                                @porcentaje
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
 </div>

@@ -37,6 +37,8 @@ namespace WatsonORT.Presentacion.Controllers
             ValidarTexto(consultaAnalisis);
             if (ModelState.IsValid)
             {
+                consultaAnalisis.Email = consultaAnalisis.Email.Trim().ToLower();
+
                 consultaRepository.AddEntity(consultaAnalisis);
                 consultaAnalisis.CodigoConsulta = consultaAnalisis.Id.ToString("000000");
                 consultaRepository.UpdateEntity(consultaAnalisis);

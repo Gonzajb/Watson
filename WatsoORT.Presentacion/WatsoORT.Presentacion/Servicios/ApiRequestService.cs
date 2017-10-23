@@ -4,33 +4,38 @@ using System.Linq;
 using System.Web;
 using RestSharp;
 using WatsonORT.Dominio.Clases;
-
+using Watson.PersonalityInsights;
+using Watson.Core;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Watson.PersonalityInsights.Models;
+using Watson.PersonalityInsights.Enums;
 
 namespace WatsonORT.Presentacion.Servicios
 {
     public class ApiRequestService
     {
-        string baseUrl = "http://jony-personality.mybluemix.net/api/personality";
-        string errorMessage = "Error en la conexión con el servicio.";
-
         public ApiRequestService()
         {  
         }
 
-        public ResultadoWatson SendRequest(string consulta)
+        public IProfile GetProfileWithOptionsSync(string texto)
         {
-            var client = new RestClient(baseUrl);
-            var request = new RestRequest(Method.POST);
-            request.AddParameter("text", consulta);
-            var response = client.Execute<List<ElementoResultado>>(request);
-            ResultadoWatson resultado = new ResultadoWatson();
-            resultado.Elementos = response.Data;
-
-            if (response.ErrorException != null)
+            var options = new ProfileOptions(texto)
             {
-                throw new Exception(errorMessage);
-            }
-            return resultado;
+                IncludeRaw = true,
+                AcceptLanguage = AcceptLanguage.Es,
+                ContentLanguage = ContentLanguage.Es
+            };
+            var service = new PersonalityInsightsService("363fdb26-d90c-4305-9203-45941b7a481b", "BKcFLfhY4dAV");
+            var profile = service.GetProfileAsync(options);
+
+            return profile.Result;
+        }
+
+        public IProfile SendRequest(string consulta)
+        {
+            return GetProfileWithOptionsSync(consulta);
         }
     }
 }
