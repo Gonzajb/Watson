@@ -33,7 +33,7 @@ namespace WatsonORT.Presentacion.Controllers
 
                 if (consulta == null)
                 {
-                    ModelState.AddModelError("Email y/o Código de consulta incorrecto", "Email y/o Código de consulta incorrecto");
+                    ModelState.AddModelError("", "Email y/o Código de consulta incorrecto");
                     return View(model);
                 }
                 try
